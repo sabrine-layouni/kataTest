@@ -1,0 +1,7 @@
+{
+    "/api": {
+       "target": "https://api.publicapis.org/entries?category=social",
+       "secure": false,
+       "logLevel": "debug"
+    }
+ }

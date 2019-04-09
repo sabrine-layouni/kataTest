@@ -1,0 +1,20 @@
+<div class="container container-fluid pt-2">
+    <div class="row">
+        <div class="col-md-12 text-left">
+          <h2>
+            {{currancyService.selected.title}}
+          </h2>
+        </div>
+        <hr class="pt-5">
+        <ul class="text-left">
+          <li>ID: {{currancyService.selected.id}}</li>
+          <li>Title: {{currancyService.selected.title}}</li>
+          <li>Channel: {{currancyService.selected.channel}}</li>
+          <li>Owner: {{currancyService.selected.owner}}</li>
+        </ul>
+    </div>
+    <hr>
+    <div class="row col-md-12">
+        <button routerLink="/" class="btn btn-primary">Retour</button>
+    </div>
+</div>
