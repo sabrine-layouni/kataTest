@@ -18,13 +18,10 @@ export class CurrancyService {
     this.change.emit(this.selected);
   }
 
-  public getCatalog(filter, search) {console.log(filter, search)
+  public getCatalog(filter, search) {
     let url = '/videos?';
-    if (filter) {
-      url = url + `${filter}`;
-    }
-    if (search) {
-      url = url + `${filter}`;
+    if (filter && search) {
+      url = url + `${filter}=${search}`;
     }
     return this.http.get(this.baseUrl + url);
   }

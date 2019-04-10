@@ -5,12 +5,12 @@
     </h2>
   </div>
   <hr class="pt-5">
-  <app-search (onChangeSearch)="filter($event)"
-   (onChangeFilter)="filter($event)"
+  <app-search (onChangeSearch)="setSearch($event)"
+   (onChangeFilter)="setFilter($event)"
     [searchInput]="searchInput"
-     [filterInput]="filterInput"></app-search>
+     [filterInput]="filterInput"
+     [disable]="loading"></app-search>
   <hr class="pt-5">
-
   <div class="catalog">
     <table class="row">
       <a class="class=col-md-1 col-sm-2" *ngFor="let currancy of data; index as i" (click)="currancyService.select(currancy)" href="#/currancy/{{currancy.id}}">

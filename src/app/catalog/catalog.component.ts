@@ -18,6 +18,7 @@ export class CatalogComponent implements OnInit {
   public pages: number;
   public searchInput: string;
   public filterInput: string;
+  public loading: boolean;
   
   constructor(public currancyService: CurrancyService) { }
 
@@ -77,25 +78,32 @@ export class CatalogComponent implements OnInit {
     );
   }
 
-  filter() {console.log(this.filterInput, this.searchInput)
-    this.currancyService.getCatalog(this.filterInput, this.searchInput).subscribe(
-      (result: any) => {
-        if(result.list) {
-          this.data = result.list;
-          this.page = result.page;
-          this.elementsPerPage = result.limit;
-          this.total = result.total;
+  search(){
+    if (this.filterInput && this.searchInput) {
+      this.loading = true;
+      const result= this.currancyService.getCatalog(this.filterInput, this.searchInput);
+      result.subscribe((currencyList: any) => {
+          this.data = currencyList.list;
+          this.page = currencyList.page;
+          this.elementsPerPage = currencyList.limit;
+          this.total = currencyList.total;
           this.pages = this.data.length - 1;
-        }
-        else if(result.msg_error) {
-          this.error = result.msg_error;
-        }
-      },
-      (err: any) => {
-        this.error = err;
-      }
-    );
+          this.loading = false;
+        });
+    }
   }
+
+  setFilter(filter){
+    this.filterInput = filter;
+    this.search();
+  }
+
+  setSearch(search){
+    this.searchInput = search;
+    this.search();
+  }
+
+
   ngOnInit() {
     this.getCatalog();
   }
