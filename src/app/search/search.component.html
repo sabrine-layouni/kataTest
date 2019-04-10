@@ -1,0 +1,14 @@
+<div class="row">
+    <div class="col-md-6">
+        <input class="form-control" [(ngModel)]="searchInput" (keyup)="onSearch()" placeholder="Search..">
+    </div>
+    <div class="col-md-6">
+        <select (change)="onFilter()" [(ngModel)]="filter" class="form-control">
+            <option value="">Filter By ..</option>
+            <option value="id">ID</option>
+            <option value="title">TITLE</option>
+            <option value="channel">CHANNEL</option>
+          </select>
+    </div> 
+ 
+</div>

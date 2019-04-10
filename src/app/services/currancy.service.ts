@@ -18,8 +18,15 @@ export class CurrancyService {
     this.change.emit(this.selected);
   }
 
-  public getCatalog() {
-    return this.http.get(this.baseUrl + '/videos');
+  public getCatalog(filter, search) {console.log(filter, search)
+    let url = '/videos?';
+    if (filter) {
+      url = url + `${filter}`;
+    }
+    if (search) {
+      url = url + `${filter}`;
+    }
+    return this.http.get(this.baseUrl + url);
   }
 
   public getPage(page, limit) {

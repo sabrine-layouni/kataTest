@@ -16,11 +16,13 @@ export class CatalogComponent implements OnInit {
   public page: number;
   public total: number;
   public pages: number;
+  public searchInput: string;
+  public filterInput: string;
   
   constructor(public currancyService: CurrancyService) { }
 
   getCatalog() {
-    this.currancyService.getCatalog().subscribe(
+    this.currancyService.getCatalog(null, null).subscribe(
       (result: any) => {
         if(result.list) {
           this.data = result.list;
@@ -56,6 +58,7 @@ export class CatalogComponent implements OnInit {
       }
     );
   }
+
   paginate(event) {
     this.currancyService.getPage(this.page, this.elementsPerPage).subscribe(
       (result: any) => {
@@ -74,6 +77,25 @@ export class CatalogComponent implements OnInit {
     );
   }
 
+  filter() {console.log(this.filterInput, this.searchInput)
+    this.currancyService.getCatalog(this.filterInput, this.searchInput).subscribe(
+      (result: any) => {
+        if(result.list) {
+          this.data = result.list;
+          this.page = result.page;
+          this.elementsPerPage = result.limit;
+          this.total = result.total;
+          this.pages = this.data.length - 1;
+        }
+        else if(result.msg_error) {
+          this.error = result.msg_error;
+        }
+      },
+      (err: any) => {
+        this.error = err;
+      }
+    );
+  }
   ngOnInit() {
     this.getCatalog();
   }

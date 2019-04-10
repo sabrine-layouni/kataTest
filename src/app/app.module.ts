@@ -11,13 +11,17 @@ import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { CatalogComponent } from './catalog/catalog.component';
 import { CurrancyComponent } from './currancy/currancy.component';
+import { SearchPipe } from './search.pipe';
+import { SearchComponent } from './search/search.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     CatalogComponent,
-    CurrancyComponent
+    CurrancyComponent,
+    SearchPipe,
+    SearchComponent
   ],
   imports: [
     BrowserModule,
