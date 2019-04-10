@@ -5,6 +5,9 @@
     </h2>
   </div>
   <hr class="pt-5">
+  <div class="alert alert-danger" role="alert" *ngIf="error !== ''">
+      {{error}}
+  </div>
   <app-search (onChangeSearch)="setSearch($event)"
    (onChangeFilter)="setFilter($event)"
     [searchInput]="searchInput"
@@ -13,7 +16,6 @@
   <hr class="pt-5">
   <div class="catalog">
     <table class="row">
-     
       <a class="col-lg-2 col-md-3 col-sm-5 col-xs-6" *ngFor="let currancy of data; index as i" (click)="currancyService.select(currancy)" href="#/currancy/{{currancy.id}}">
         <tr *ngIf="i <= elementsPerPage">
           <td>
@@ -43,4 +45,3 @@
     <hr class="pt-5">
   </div>
 </div>
-<app-loading></app-loading>

@@ -8,6 +8,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class CurrancyService {
 
   public selected = {};
+  public page: number = 1;
+  public perPage: number = 10;
   public baseUrl = 'https://api.dailymotion.com/channel/music';
   @Output() change: EventEmitter<any> = new EventEmitter();
 
@@ -18,18 +20,24 @@ export class CurrancyService {
     this.change.emit(this.selected);
   }
 
-  public getCatalog(filter, search) {
-    let url = '/videos?';
+  public getCatalog(page, perPage, filter, search) {
+    this.page = page;
+    this.perPage = perPage;
+    let url = `/videos?page=${page}&limit=${perPage}`;
+
     if (filter && search) {
-      url = url + `${filter}=${search}`;
+      url = url + `&${filter}=${search}`;
     }
     return this.http.get(this.baseUrl + url);
   }
 
   public getPage(page, limit) {
+    this.page = page;
+    this.perPage = limit;
     return this.http.get(this.baseUrl + `/videos?page=${page}&limit=${limit}`);
   }
   public setElementsPerPage(limit) {
+    this.perPage = limit;
     return this.http.get(this.baseUrl + `/videos?limit=${limit}`);
   }
   

@@ -12,7 +12,7 @@ import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { CatalogComponent } from './catalog/catalog.component';
 import { CurrancyComponent } from './currancy/currancy.component';
-import { SearchPipe } from './search.pipe';
+import { SearchPipe } from './helpers/pipes/search/search.pipe';
 import { SearchComponent } from './search/search.component';
 import { LoadingComponent } from './shared/loading/loading.component';
 import { LoadingScreenInterceptor } from './helpers/loading.interceptor';
