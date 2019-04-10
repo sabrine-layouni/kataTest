@@ -4,11 +4,11 @@
     </div>
     <div class="col-md-6">
         <select (change)="onFilter()" [(ngModel)]="filterInput" class="form-control" [disabled]="loading===true">
-            <option value="">Filter By ..</option>
+            <option value="" selected>Filter By ..</option>
             <option value="id">ID</option>
             <option value="title">TITLE</option>
             <option value="channel">CHANNEL</option>
-          </select>
+        </select>
     </div> 
  
 </div>
