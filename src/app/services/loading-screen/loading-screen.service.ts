@@ -18,11 +18,11 @@ export class LoadingScreenService {
     this.loadingStatus.next(value);
   }
 
-  startLoading() {
+  startLoading() {console.log('loading')
     this.loading = true;
   }
 
-  stopLoading() {
+  stopLoading() {console.log('stop')
     this.loading = false;
   }
 }

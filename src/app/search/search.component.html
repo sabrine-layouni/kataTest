@@ -1,10 +1,10 @@
 <div class="row">
     <div class="col-md-6">
-        <input class="form-control" [(ngModel)]="searchInput" (keyup)="onSearch()" placeholder="Search.." [disabled]="loading===true">
+        <input class="form-control" [(ngModel)]="searchInput" (keyup)="onSearch()" placeholder="Enter Id you want to search .." [disabled]="loading===true">
     </div>
     <div class="col-md-6">
         <select (change)="onFilter()" [(ngModel)]="filterInput" class="form-control" [disabled]="loading===true">
-            <option value="" selected>Filter By ..</option>
+            <option value="" selected>(API supports only ID search)</option>
             <option value="id">ID</option>
             <option value="title">TITLE</option>
             <option value="channel">CHANNEL</option>

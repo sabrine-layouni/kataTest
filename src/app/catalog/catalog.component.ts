@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { CurrancyService } from '../services/currancy.service';
-import { PARAMETERS } from '@angular/core/src/util/decorators';
 
 
 @Component({
@@ -19,7 +18,7 @@ export class CatalogComponent implements OnInit {
   public pages: number;
   public searchInput: string;
   public filterInput: string;
-  public loading: boolean;
+  public searching: boolean = false;
 
   constructor(public currancyService: CurrancyService) { }
 
@@ -85,8 +84,7 @@ export class CatalogComponent implements OnInit {
   }
 
   search(){
-    if (this.filterInput && this.searchInput) {
-      this.loading = true;
+    if (this.filterInput!=='' && this.searchInput!='') {
       const result= this.currancyService.getCatalog(this.page, this.elementsPerPage, this.filterInput, this.searchInput);
       result.subscribe((res: any) => {
         if(res.list) {
@@ -95,7 +93,11 @@ export class CatalogComponent implements OnInit {
           this.elementsPerPage = res.limit;
           this.total = res.total;
           this.pages = this.data.length - 1;
-          this.loading = false;
+        } else if (res.id) {
+          this.resetSearch();
+          this.data = [];
+          this.data.push(result);
+          this.searching = true;
         }
         else if(res.error) {
           this.error = res.error.msg_error;
@@ -119,6 +121,10 @@ export class CatalogComponent implements OnInit {
     this.search();
   }
 
+  resetSearch(){
+    this.filterInput = "";
+    this.searchInput = "";
+  }
   ngOnInit() {
     this.getCatalog();
   }

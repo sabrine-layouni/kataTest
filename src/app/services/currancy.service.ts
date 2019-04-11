@@ -10,7 +10,7 @@ export class CurrancyService {
   public selected = {};
   public page: number = 1;
   public perPage: number = 10;
-  public baseUrl = 'https://api.dailymotion.com/channel/music';
+  public baseUrl = 'https://api.dailymotion.com';
   @Output() change: EventEmitter<any> = new EventEmitter();
 
   constructor(private http: HttpClient) { }
@@ -23,10 +23,10 @@ export class CurrancyService {
   public getCatalog(page, perPage, filter, search) {
     this.page = page;
     this.perPage = perPage;
-    let url = `/videos?page=${page}&limit=${perPage}`;
+    let url = `/channel/music/videos?page=${page}&limit=${perPage}`;
 
     if (filter && search) {
-      url = url + `&${filter}=${search}`;
+      url = `/video/${search}?fields=id,title,owner,owner.screenname,owner.url`;
     }
     return this.http.get(this.baseUrl + url);
   }
@@ -34,11 +34,11 @@ export class CurrancyService {
   public getPage(page, limit) {
     this.page = page;
     this.perPage = limit;
-    return this.http.get(this.baseUrl + `/videos?page=${page}&limit=${limit}`);
+    return this.http.get(this.baseUrl + `/channel/music/videos?page=${page}&limit=${limit}`);
   }
   public setElementsPerPage(limit) {
     this.perPage = limit;
-    return this.http.get(this.baseUrl + `/videos?limit=${limit}`);
+    return this.http.get(this.baseUrl + `/channel/music/videos?limit=${limit}`);
   }
   
 }
