@@ -23,7 +23,7 @@ export class CatalogComponent implements OnInit {
   constructor(public currancyService: CurrancyService) { }
 
   getCatalog() {
-    this.currancyService.getCatalog(this.page, this.elementsPerPage,null, null).subscribe(
+    this.currancyService.getPage(this.elementsPerPage, this.page).subscribe(
       (result: any) => {
         if(result.list) {
           this.data = result.list;
@@ -43,7 +43,7 @@ export class CatalogComponent implements OnInit {
   }
 
   changeElementsNumber() {
-    this.currancyService.setElementsPerPage(this.elementsPerPage).subscribe(
+    this.currancyService.getPage(this.elementsPerPage).subscribe(
       (result: any) => {
         if(result.list) {
           this.data = result.list;
@@ -65,7 +65,7 @@ export class CatalogComponent implements OnInit {
       this.search();
     }
     else {
-      this.currancyService.getPage(this.page, this.elementsPerPage).subscribe(
+      this.currancyService.getPage(this.elementsPerPage, this.page).subscribe(
         (result: any) => {
           if(result.list) {
             this.data = result.list;
@@ -85,7 +85,7 @@ export class CatalogComponent implements OnInit {
 
   search(){
     if (this.filterInput!=='' && this.searchInput!='') {
-      const result= this.currancyService.getCatalog(this.page, this.elementsPerPage, this.filterInput, this.searchInput);
+      const result= this.currancyService.getPage(this.elementsPerPage, this.page, this.searchInput);
       result.subscribe((res: any) => {
         if(res.list) {
           this.data = res.list;

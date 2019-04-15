@@ -1,16 +1,19 @@
 import { Injectable, Output, EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {Currencies} from '../modals/currencies';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CurrancyService {
 
-  public selected = {};
-  public page: number = 1;
-  public perPage: number = 10;
-  public baseUrl = 'https://api.dailymotion.com';
+  public selected: object = {};
+  public page: number;
+  public limit: number = 10;
+  public search: string;
+  public baseUrl: string = 'https://api.dailymotion.com';
+  public fields: string = 'fields=id,title,owner,owner.screenname,owner.url';
   @Output() change: EventEmitter<any> = new EventEmitter();
 
   constructor(private http: HttpClient) { }
@@ -20,25 +23,19 @@ export class CurrancyService {
     this.change.emit(this.selected);
   }
 
-  public getCatalog(page, perPage, filter, search) {
-    this.page = page;
-    this.perPage = perPage;
-    let url = `/channel/music/videos?page=${page}&limit=${perPage}`;
-
-    if (filter && search) {
-      url = `/video/${search}?fields=id,title,owner,owner.screenname,owner.url`;
+  public getPage(limit: number, page?: number, search?: string) {
+    page ? this.page = page : 1;
+    this.limit = limit;
+    let url = `/channel/music/videos?page=${this.page}&limit=${this.limit}`;
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json'
+      })
+    };
+    if (search) {
+      this.search = search;
+      url = `/video/${this.search}?`, httpOptions;
     }
-    return this.http.get(this.baseUrl + url);
+    return this.http.get(this.baseUrl + url, httpOptions);
   }
-
-  public getPage(page, limit) {
-    this.page = page;
-    this.perPage = limit;
-    return this.http.get(this.baseUrl + `/channel/music/videos?page=${page}&limit=${limit}`);
-  }
-  public setElementsPerPage(limit) {
-    this.perPage = limit;
-    return this.http.get(this.baseUrl + `/channel/music/videos?limit=${limit}`);
-  }
-  
 }
