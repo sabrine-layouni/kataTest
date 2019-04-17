@@ -42,47 +42,6 @@ export class CatalogComponent implements OnInit {
     );
   }
 
-  changeElementsNumber() {
-    this.currancyService.getPage(this.elementsPerPage).subscribe(
-      (result: any) => {
-        if(result.list) {
-          this.data = result.list;
-          this.page = result.page;
-          this.elementsPerPage = result.limit;
-        }
-        else if(result.msg_error) {
-          this.error = result.msg_error;
-        }
-      },
-      (err: any) => {
-        this.error = err;
-      }
-    );
-  }
-
-  paginate(event) {
-    if (this.filterInput && this.searchInput) {
-      this.search();
-    }
-    else {
-      this.currancyService.getPage(this.elementsPerPage, this.page).subscribe(
-        (result: any) => {
-          if(result.list) {
-            this.data = result.list;
-            this.page = result.page;
-            this.elementsPerPage = result.limit;
-          }
-          else if(result.msg_error) {
-            this.error = result.msg_error;
-          }
-        },
-        (err: any) => {
-         // this.error = err;
-        }
-      );
-    }
-  }
-
   search(){
     if (this.filterInput!=='' && this.searchInput!='') {
       const result= this.currancyService.getPage(this.elementsPerPage, this.page, this.searchInput);

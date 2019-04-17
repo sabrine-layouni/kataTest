@@ -23,7 +23,7 @@ export class CurrancyService {
     this.change.emit(this.selected);
   }
 
-  public getPage(limit: number, page?: number, search?: string) {
+  public getPage(limit: number, page?: number, search?: string): Observable<Currencies> {
     page ? this.page = page : 1;
     this.limit = limit;
     let url = `/channel/music/videos?page=${this.page}&limit=${this.limit}`;
@@ -36,6 +36,6 @@ export class CurrancyService {
       this.search = search;
       url = `/video/${this.search}?`, httpOptions;
     }
-    return this.http.get(this.baseUrl + url, httpOptions);
+    return this.http.get<Currencies>(this.baseUrl + url, httpOptions);
   }
 }
