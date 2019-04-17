@@ -9,7 +9,7 @@ import { CurrancyService } from '../services/currancy.service';
 })
 export class CatalogComponent implements OnInit {
 
- 
+ public object: Object = {foo: 'bar', baz: 'qux', nested: {xyz: 3, numbers: [1, 2, 3, 4, 5]}};
   public data: any = [];
   public error: string = '';
   public elementsPerPage: number = 10;
@@ -49,13 +49,13 @@ export class CatalogComponent implements OnInit {
   setFilter(filter){
     this.error = "";
     this.filterInput = filter;
-    this.search();
+    // this.getCatalog();
   }
 
   setSearch(search){
     this.error = "";
     this.searchInput = search;
-    this.search();
+    this.getCatalog();
   }
 
   resetSearch(){
