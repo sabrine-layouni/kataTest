@@ -1,6 +1,7 @@
 import { Injectable, Output, EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from 'src/environments/environment.prod';
 import {Currencies} from '../modals/currencies';
 
 @Injectable({
@@ -36,6 +37,6 @@ export class CurrancyService {
       this.search = search;
       url = `/video/${this.search}?`, httpOptions;
     }
-    return this.http.get<Currencies>(this.baseUrl + url, httpOptions);
+    return this.http.get<Currencies>(environment.baseUrl + url, httpOptions);
   }
 }

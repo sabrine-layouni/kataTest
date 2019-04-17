@@ -30,7 +30,7 @@
    
   </table>
 
-    <div *ngIf="!searching" class="row justify-content-center align-self-center mt-5">
+    <div *ngIf="data.length>1" class="row justify-content-center align-self-center mt-5">
       <div class="col-md-2 text-left">
         <select [(ngModel)]="elementsPerPage" (ngModelChange)="getCatalog($event)" class="form-control">
           <option value="10">10</option>
@@ -39,11 +39,11 @@
         </select>
       </div>
       <div class="text-right">
-        <ngb-pagination *ngIf="!searching" [collectionSize]="1000" [(page)]="page" [(pageSize)]="elementsPerPage" [maxSize]="5" [boundaryLinks]="page !== 1 && page !== total" [rotate]="true" [ellipses]="false" (pageChange)="getCatalog($event)"></ngb-pagination>
+        <ngb-pagination *ngIf="data.length>1" [collectionSize]="1000" [(page)]="page" [(pageSize)]="elementsPerPage" [maxSize]="5" [boundaryLinks]="page !== 1 && page !== total" [rotate]="true" [ellipses]="false" (pageChange)="getCatalog($event)"></ngb-pagination>
       </div>
     </div>
-    <div *ngIf="searching"class="row col-md-12">
-      <button routerLink="/" class="btn btn-primary" (click)="searching = false;paginate($event)">Retour</button>
+    <div *ngIf="data.length==1" class="row col-md-12">
+      <button routerLink="/" class="btn btn-primary" (click)="searching = false;getCatalog($event)">Retour</button>
   </div>
     <hr class="pt-5">
   </div>

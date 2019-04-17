@@ -23,7 +23,7 @@ export class CatalogComponent implements OnInit {
   constructor(public currancyService: CurrancyService) { }
 
   getCatalog() {
-    this.currancyService.getPage(this.elementsPerPage, this.page).subscribe(
+    this.currancyService.getPage(this.elementsPerPage, this.page, this.searchInput).subscribe(
       (result: any) => {
         if(result.list) {
           this.data = result.list;
@@ -31,6 +31,10 @@ export class CatalogComponent implements OnInit {
           this.elementsPerPage = result.limit;
           this.total = result.total;
           this.pages = this.data.length - 1;
+        } else if (result.id) {
+          this.resetSearch();
+          this.data = [];
+          this.data.push(result);
         }
         else if(result.error) {
           this.error = result.error.message;
@@ -40,32 +44,6 @@ export class CatalogComponent implements OnInit {
         this.error = err;
       }
     );
-  }
-
-  search(){
-    if (this.filterInput!=='' && this.searchInput!='') {
-      const result= this.currancyService.getPage(this.elementsPerPage, this.page, this.searchInput);
-      result.subscribe((res: any) => {
-        if(res.list) {
-          this.data = res.list;
-          this.page = res.page;
-          this.elementsPerPage = res.limit;
-          this.total = res.total;
-          this.pages = this.data.length - 1;
-        } else if (res.id) {
-          this.resetSearch();
-          this.data = [];
-          this.data.push(result);
-          this.searching = true;
-        }
-        else if(res.error) {
-          this.error = res.error.msg_error;
-        }
-      },
-      (err: any) => {
-        this.error = err.error.error.message;
-      });
-    }
   }
 
   setFilter(filter){
